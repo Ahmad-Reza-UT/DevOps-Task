@@ -1,0 +1,36 @@
+autoinstall:
+  version: 1
+  locale: en_US
+  keyboard:
+    layout: us
+  ssh:
+    install-server: true
+    allow-pw: true
+  packages:
+    - qemu-guest-agent
+  late-commands:
+    - "sudo apt update && sudo apt install -y efibootmgr"
+    - "sudo efibootmgr"
+    - "sudo efibootmgr -o 0007,0001,0000,0002,0003,0004,0005,0006"
+  user-data:
+    preserve_hostname: false
+    hostname: abrNOC
+    package_upgrade: true
+    timezone: Asia/Tehran
+    chpasswd:
+      expire: true
+      list:
+        - woody1:abrNOC
+        - woody2:abrNOC
+    users:
+      - name: woody1
+        plain-txt-passwd: @wrwWRG242@G2
+        groups: [adm, cdrom, dip, plugdev, lxd, sudo]
+        lock-passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
+      - name: woody2
+        plain-txt-passwd: @wr$@242g4gHH
+        groups: [adm, cdrom, dip, plugdev, lxd, sudo]
+        lock-passwd: false
+        shell: /bin/bash
